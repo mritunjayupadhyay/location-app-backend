@@ -10,4 +10,8 @@ export class UsersService {
   findAll(): any {
     return this.userModel.find();
   }
+
+  getUser(email: string): any {
+    return this.userModel.findOne({ email });
+  }
 }
