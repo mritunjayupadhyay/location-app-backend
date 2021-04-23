@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { IUser } from './users.schema';
 
 @Injectable()
 export class UsersService {
-  findAll(): { error: boolean; data: string } {
-    return {
-      error: false,
-      data: 'Found',
-    };
+  constructor(@InjectModel('User') private userModel: Model<IUser>) {}
+
+  findAll(): any {
+    return this.userModel.find();
   }
 }
