@@ -16,7 +16,8 @@ export class AuthGuard implements CanActivate {
     if (!request.headers.authorization) {
       return false;
     }
-    request.user = await this.validateToken(request.headers.authorization);
+    const decodedData = await this.validateToken(request.headers.authorization);
+    request.user = decodedData;
     return true;
   }
 
@@ -28,6 +29,7 @@ export class AuthGuard implements CanActivate {
       const token = auth.split(' ')[1];
       const decode = await jwt.verify(token, jwtPrivateKey);
       console.log('decode', decode);
+      return decode;
     } catch (error) {
       const message = 'Token Error: ' + (error.message || error.name);
       throw new HttpException(message, HttpStatus.FORBIDDEN);
