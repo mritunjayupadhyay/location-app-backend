@@ -2,6 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LoginDto, RegisterDto } from './dto/auth.dto';
 import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
+
+import { jwtPrivateKey } from '../../config';
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
@@ -17,9 +20,10 @@ export class AuthService {
     if (!validPassword) {
       throw new HttpException('Access Denied', HttpStatus.BAD_REQUEST);
     }
+    const token = await this.generateJwtToken(user._id);
     return {
-      loginDto,
-      error: false,
+      user,
+      authToken: token,
     };
   }
 
@@ -30,19 +34,24 @@ export class AuthService {
       throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
     }
     const hashedPassword = await this.hashPassword(password);
-    const fromUser = await this.usersService.createUser({
+    const createdUser = await this.usersService.createUser({
       email,
       password: hashedPassword,
       name,
     });
+    const token = await this.generateJwtToken(user._id);
     return {
-      registerDto,
-      fromUser,
+      user: createdUser,
+      authToken: token,
     };
   }
 
-  async hashPassword(password) {
+  async hashPassword(password: string) {
     const salt = await bcrypt.genSalt(10);
     return bcrypt.hash(password, salt);
+  }
+
+  async generateJwtToken(userId: string) {
+    return jwt.sign({ userId }, jwtPrivateKey, { expiresIn: '10h' });
   }
 }

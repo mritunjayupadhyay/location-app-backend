@@ -8,11 +8,19 @@ export class AuthController {
 
   @Post('/login')
   async login(@Body() loginDto: LoginDto): Promise<any> {
-    return this.authService.login(loginDto);
+    const data = await this.authService.login(loginDto);
+    return {
+      error: false,
+      data,
+    };
   }
 
   @Post('/register')
   async register(@Body() registerDto: RegisterDto): Promise<any> {
-    return this.authService.register(registerDto);
+    const data = await this.authService.register(registerDto);
+    return {
+      error: false,
+      data,
+    };
   }
 }
