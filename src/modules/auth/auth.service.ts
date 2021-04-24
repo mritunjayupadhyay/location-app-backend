@@ -10,7 +10,7 @@ export class AuthService {
     const fromUser = this.usersService.getUser(email);
     return {
       loginDto,
-      fromUser: 'from user',
+      fromUser,
     };
   }
 }
