@@ -5,9 +5,9 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto) {
     const { email } = loginDto;
-    const fromUser = this.usersService.getUser(email);
+    const fromUser = await this.usersService.getUser(email);
     return {
       loginDto,
       fromUser,

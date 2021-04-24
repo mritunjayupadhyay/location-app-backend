@@ -1,4 +1,9 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+} from '@nestjs/common';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
@@ -6,8 +11,11 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    const status = exception ? exception.getStatus() : 500;
-
+    // const status = exception && !(exception instanceof HttpException) ? exception.getStatus() : 500;
+    const status =
+      exception && exception instanceof HttpException
+        ? exception.getStatus()
+        : 500;
     response.status(500).json({
       error: true,
       message: exception.toString(),

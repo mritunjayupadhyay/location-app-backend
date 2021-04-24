@@ -11,7 +11,7 @@ export class UsersService {
     return this.userModel.find();
   }
 
-  getUser(email: string): any {
+  async getUser(email: string): Promise<any> {
     return this.userModel.findOne({ email });
   }
 }
