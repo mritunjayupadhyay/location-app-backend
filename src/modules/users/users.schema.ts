@@ -9,9 +9,14 @@ export const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  }
 });
 
 export interface IUser extends mongoose.Document {
   email: string;
   password: string;
+  name: string;
 }
