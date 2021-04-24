@@ -12,7 +12,7 @@ export const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-  }
+  },
 });
 
 export interface IUser extends mongoose.Document {
