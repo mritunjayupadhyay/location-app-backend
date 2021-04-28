@@ -39,7 +39,7 @@ export class AuthService {
       password: hashedPassword,
       name,
     });
-    const token = await this.generateJwtToken(user._id);
+    const token = await this.generateJwtToken(createdUser._id);
     return {
       user: createdUser,
       authToken: token,
