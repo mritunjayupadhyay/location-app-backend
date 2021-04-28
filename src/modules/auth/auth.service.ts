@@ -23,7 +23,7 @@ export class AuthService {
     const token = await this.generateJwtToken(user._id);
     return {
       user,
-      authToken: token,
+      authToken: `Bearer ${token}`,
     };
   }
 
@@ -42,7 +42,7 @@ export class AuthService {
     const token = await this.generateJwtToken(createdUser._id);
     return {
       user: createdUser,
-      authToken: token,
+      authToken: `Bearer ${token}`,
     };
   }
 
