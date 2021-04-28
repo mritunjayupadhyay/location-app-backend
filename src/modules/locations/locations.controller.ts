@@ -9,8 +9,8 @@ export class LocationsController {
 
   @Get('/')
   @UseGuards(new AuthGuard())
-  findAll(): any {
-    const result = this.locationsService.findAll();
+  async findAll(): Promise<any> {
+    const result = await this.locationsService.findAll();
     return {
       error: false,
       data: result,
@@ -19,9 +19,9 @@ export class LocationsController {
 
   @Post()
   @UseGuards(new AuthGuard())
-  create(@Body() createLocationDto: CreateLocationDto) {
+  async create(@Body() createLocationDto: CreateLocationDto): Promise<any> {
     const { address = '', latitude, longitude } = createLocationDto;
-    const result = this.locationsService.create({
+    const result = await this.locationsService.create({
       address,
       latitude,
       longitude,
@@ -34,8 +34,8 @@ export class LocationsController {
 
   @Delete('/:id')
   @UseGuards(new AuthGuard())
-  delete(@Param('id') locationId) {
-    const result = this.locationsService.delete(locationId);
+  async delete(@Param('id') locationId) {
+    const result = await this.locationsService.delete(locationId);
     return {
       error: false,
       data: result,
