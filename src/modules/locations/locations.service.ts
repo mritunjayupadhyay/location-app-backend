@@ -43,9 +43,9 @@ export class LocationsService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    if (userId !== location.userId) {
+    if (userId.toString() !== location.userId.toString()) {
       throw new HttpException(
-        'This location does not belongs to you',
+        `This location does not belongs to you`,
         HttpStatus.BAD_REQUEST,
       );
     }

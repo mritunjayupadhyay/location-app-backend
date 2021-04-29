@@ -52,6 +52,6 @@ export class AuthService {
   }
 
   async generateJwtToken(userId: string) {
-    return jwt.sign({ userId }, jwtPrivateKey, { expiresIn: '10h' });
+    return jwt.sign({ userId }, jwtPrivateKey, { expiresIn: '10days' });
   }
 }
