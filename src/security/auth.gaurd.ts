@@ -7,8 +7,6 @@ import {
 } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 
-import { jwtPrivateKey } from '../config';
-
 @Injectable()
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -27,7 +25,7 @@ export class AuthGuard implements CanActivate {
     }
     try {
       const token = auth.split(' ')[1];
-      const decode = await jwt.verify(token, jwtPrivateKey);
+      const decode = await jwt.verify(token, 'jwtPrivateKey');
       console.log('decode', decode);
       return decode;
     } catch (error) {

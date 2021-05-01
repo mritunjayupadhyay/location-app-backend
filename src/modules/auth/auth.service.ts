@@ -4,7 +4,6 @@ import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
-import { jwtPrivateKey } from '../../config';
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
@@ -52,6 +51,6 @@ export class AuthService {
   }
 
   async generateJwtToken(userId: string) {
-    return jwt.sign({ userId }, jwtPrivateKey, { expiresIn: '10days' });
+    return jwt.sign({ userId }, 'jwtPrivateKey');
   }
 }

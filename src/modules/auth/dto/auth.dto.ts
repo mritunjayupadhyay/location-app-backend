@@ -14,11 +14,9 @@ export class RegisterDto {
   public email: string;
 
   @IsNotEmpty()
-  @MinLength(4)
   public password: string;
 
   @IsString()
   @IsNotEmpty()
-  @MinLength(4)
   public name: string;
 }

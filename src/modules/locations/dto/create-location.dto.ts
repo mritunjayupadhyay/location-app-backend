@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, MinLength, IsNumber } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber } from 'class-validator';
 export class CreateLocationDto {
   @IsNumber()
   @IsNotEmpty()
@@ -9,6 +9,5 @@ export class CreateLocationDto {
   public longitude: number;
 
   @IsString()
-  @MinLength(7)
   public address: string;
 }
