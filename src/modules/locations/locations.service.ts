@@ -12,7 +12,9 @@ export class LocationsService {
   ) {}
 
   findAll() {
-    return this.locationModel.find();
+    const { user = {} } = this.request;
+    const { userId } = user;
+    return this.locationModel.find({ userId });
   }
 
   async getOne(id) {

@@ -8,6 +8,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
-  await app.listen(8000);
+  const instance = await app.listen(8000);
+  console.log(`App is running at 8000}`);
 }
 bootstrap();
