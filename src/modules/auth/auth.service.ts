@@ -12,12 +12,18 @@ export class AuthService {
     const { email } = loginDto;
     const user = await this.usersService.getUser(email);
     if (!user) {
-      throw new HttpException('Access Denied', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Username or Password incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const { password } = user;
     const validPassword = bcrypt.compare(loginDto.password, password);
     if (!validPassword) {
-      throw new HttpException('Access Denied', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'Username or Password incorrect',
+        HttpStatus.BAD_REQUEST,
+      );
     }
     const token = await this.generateJwtToken(user._id);
     return {
